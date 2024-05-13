@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Advanced</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 4px;
+        }
+
+        .ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translate(-50%, -50%);
+            transition: 0.5s;
+        }
+
+        .red {
+            background: red;
+        }
+
+        .blue {
+            top: 64%;
+            background: blue;
+        }
+
+        .green {
+            top: 78%;
+            background: green;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            transition: 1s;
+            background: green;
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hide {
+            visibility: hidden;
+        }
+
+        .show {
+            visibility: visible;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- <button onclick="hitMe()">
+        Hit me
+    </button> -->
+    <h1>Ball Game</h1>
+    <h2 id="timer">3</h2>
+    <button id="button" onmouseover="over()">
+        Start
+    </button>
+
+    <div id="redBall" class="ball red"></div>
+    <div id="blueBall" class="ball blue"></div>
+    <div id="greenBall" class="ball green"></div>
+<!-- 
+    <div id="box" class="hide">
+
+    </div> -->
+</body>
+<script>
+    const timer = document.getElementById('timer');
+    const box = document.getElementById('box');
+    const redBall = document.getElementById('redBall');
+    const blueBall = document.getElementById('blueBall');
+    const greenBall = document.getElementById('greenBall');
+
+    let time = 4;
+
+    // function hitMe() {
+    //     alert('this is me again');
+    // }
+
+
+    // const div = document.getElementsByTagName('div');
+        
+    button.addEventListener('click', function(){
+        setInterval(function() {
+            if(time === 1) {
+                timer.innerHTML = 'Gas !!';
+                timer.classList.add('hide');
+                race();
+                time = 0;
+                clearInterval();
+                return;
+            } else {
+                time--;
+                timer.innerHTML = time;
+                
+                if(time < 1) {
+                    clearInterval();
+                }
+            }
+        }, 1000);
+    })
+
+    function race () {
+        const redVal = (Math.floor(Math.random() * 80));
+        const blueVal = (Math.floor(Math.random() * 80));
+        const greenVal = (Math.floor(Math.random() * 80));
+
+        redBall.style.left = redVal + '%';
+        blueBall.style.left = blueVal + '%';
+        greenBall.style.left = greenVal + '%';
+    }
+
+    function over() {
+        redBall.style.background = 'purple';
+    }
+</script>
+</html>
