@@ -1,1 +1,0 @@
-export const pokemonApi = ['Torcick', 'Charizard']
