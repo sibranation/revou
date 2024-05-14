@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <style>
+        body {
+            background: #f1f1f1;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            width: 500px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 140px auto;
+        }
+
+        #selectPokemon {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            text-transform: capitalize;
+        }
+        h1 {
+            text-align: center;
+        }
+
+        #title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-top: 50px;
+            text-transform: capitalize;
+            margin-bottom: 20px;
+        }
+        #loading {
+            display: none;
+        }
+        p {
+            margin-bottom: 0px;
+            margin-top: 6px;
+        }
+        span {
+            background: #f1f1f1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+            text-transform: capitalize;
+        }
+        #image {
+            img {
+                width: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pokedex</h1>
+
+        <div class="select-pokemon">
+            <select id="selectPokemon">
+                <option>Select Pokemon</option>
+            </select>
+        </div>
+
+        <div id="loading">
+            <p>Loading...</p>
+        </div>
+
+        <div class="pokemon-wrapper" id="content">
+            <div id="title">
+
+            </div>
+
+            <div id="image">
+
+            </div>
+
+            <div id="description">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const selectPokemon = document.getElementById('selectPokemon');
+    const content = document.getElementById('content');
+    const title = document.getElementById('title');
+    const image = document.getElementById('image');
+    const description = document.getElementById('description');
+    const loading = document.getElementById('loading');
+
+    let isLoading = false;
+
+    selectPokemon.onchange = () => {
+        const value = selectPokemon.selectedIndex;
+        loading.style.display = 'block';
+
+        fetch('https://pokeapi.co/api/v2/pokemon/' + value) 
+        .then(response => response.json()) 
+        .then(data => {
+            loading.style.display = 'none';
+            title.innerHTML = data.name;
+            image.innerHTML = `<img src="${data.sprites.front_default}" alt="${data.name}">`;
+            image.innerHTML += `<img src="${data.sprites.front_shiny}" alt="${data.name}">`;
+            description.innerHTML = `<p><b>Height:</b> ${data.height}cm</p>`;
+            description.innerHTML += `<p><b>Base Experience:</b> ${data.base_experience}</p>`;
+            description.innerHTML += `<p><b>Weight:</b> ${data.weight}g</p>`;
+            description.innerHTML += `<p><b>Types:</b> ${data.types.map(item => `<span>${item.type.name}</span>`).join('')}</p>`;
+        })
+        .catch(error => { 
+            console.log(error)
+        });
+    }
+
+    const fetchAPI = () => {
+
+        fetch('https://pokeapi.co/api/v2/pokemon?limit=1000') 
+        .then(response => response.json()) 
+        .then(data => {
+            selectPokemon.innerHTML += data.results.map(pokemon => `<option>${pokemon.name}</option>`).join('');
+        })
+        .catch(error => { 
+            console.log(error)
+        });
+    }
+
+    fetchAPI();
+</script>
+</html>

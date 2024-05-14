@@ -74,18 +74,20 @@
     <div id="redBall" class="ball red"></div>
     <div id="blueBall" class="ball blue"></div>
     <div id="greenBall" class="ball green"></div>
+
+    <!-- <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" /> -->
 <!-- 
     <div id="box" class="hide">
 
     </div> -->
 </body>
+
 <script>
     const timer = document.getElementById('timer');
     const box = document.getElementById('box');
     const redBall = document.getElementById('redBall');
     const blueBall = document.getElementById('blueBall');
     const greenBall = document.getElementById('greenBall');
-
     let time = 4;
 
     // function hitMe() {
@@ -115,7 +117,7 @@
         }, 1000);
     })
 
-    function race () {
+    const race = () => {
         const redVal = (Math.floor(Math.random() * 80));
         const blueVal = (Math.floor(Math.random() * 80));
         const greenVal = (Math.floor(Math.random() * 80));
